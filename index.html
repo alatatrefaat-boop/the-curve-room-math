@@ -1,691 +1,1245 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f5f0e7">
-  <title>THE CURVE ROOM | Think. Analyze. Discover.</title>
-
-  <style>
-    :root {
-      --cream: #f5f0e7;
-      --paper: #fffdf8;
-      --brown: #493727;
-      --brown-light: #765b43;
-      --gold: #b08b5a;
-      --gold-light: #e8d9c2;
-      --ink: #29241f;
-      --muted: #82776b;
-      --line: #e5dbcd;
-      --green: #54765d;
-      --red: #a34d43;
-      --shadow: 0 12px 35px rgba(65, 47, 30, .08);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--cream);
-      color: var(--ink);
-      line-height: 1.6;
-    }
-
-    button {
-      font: inherit;
-      cursor: pointer;
-    }
-
-    a {
-      color: var(--brown-light);
-    }
-
-    .topbar {
-      background: var(--brown);
-      color: var(--cream);
-      padding: 15px 6%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 15px rgba(0,0,0,.12);
-    }
-
-    .brand {
-      font-size: 17px;
-      font-weight: 800;
-      letter-spacing: 3px;
-      white-space: nowrap;
-    }
-
-    .brand span {
-      color: #d9bb91;
-    }
-
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      justify-content: flex-end;
-    }
-
-    nav a {
-      color: #f5eee4;
-      text-decoration: none;
-      font-size: 12px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      opacity: .85;
-    }
-
-    nav a:hover {
-      color: #e3c18f;
-      opacity: 1;
-    }
-
-    .hero {
-      min-height: 470px;
-      padding: 100px 7% 90px;
-      display: flex;
-      align-items: center;
-      background:
-        linear-gradient(110deg, rgba(38,29,22,.94), rgba(66,48,34,.82)),
-        radial-gradient(circle at 80% 20%, #b08b5a, transparent 40%);
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::after {
-      content: "∿";
-      position: absolute;
-      right: 7%;
-      top: 0;
-      font-family: Georgia, serif;
-      font-size: 330px;
-      line-height: 1;
-      color: rgba(255,255,255,.07);
-      transform: rotate(-15deg);
-    }
-
-    .hero-content {
-      max-width: 760px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .eyebrow {
-      color: #d7b98d;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 18px;
-    }
-
-    .hero h1 {
-      font-family: Georgia, serif;
-      font-size: clamp(48px, 8vw, 82px);
-      line-height: 1.04;
-      letter-spacing: 2px;
-      margin-bottom: 22px;
-    }
-
-    .hero h1 span {
-      color: #d8b98d;
-    }
-
-    .hero p {
-      color: #e8dfd3;
-      font-size: 17px;
-      max-width: 580px;
-      margin-bottom: 30px;
-    }
-
-    .main-button {
-      display: inline-block;
-      padding: 13px 24px;
-      border: 1px solid #d6b98f;
-      background: #d6b98f;
-      color: #302419;
-      border-radius: 4px;
-      font-weight: bold;
-      text-decoration: none;
-      transition: .2s;
-    }
-
-    .main-button:hover {
-      background: transparent;
-      color: white;
-    }
-
-    .section {
-      padding: 75px 7%;
-      scroll-margin-top: 75px;
-    }
-
-    .section-heading {
-      margin-bottom: 35px;
-      max-width: 760px;
-    }
-
-    .section-heading .eyebrow {
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
-
-    .section-heading h2 {
-      font-family: Georgia, serif;
-      color: var(--brown);
-      font-size: clamp(32px, 5vw, 48px);
-      margin-bottom: 10px;
-    }
-
-    .section-heading p {
-      color: var(--muted);
-    }
-
-    .intro-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 35px;
-    }
-
-    .intro-card {
-      background: var(--paper);
-      padding: 25px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-    }
-
-    .intro-card .number {
-      color: var(--gold);
-      font-family: Georgia, serif;
-      font-size: 36px;
-      margin-bottom: 8px;
-    }
-
-    .intro-card h3 {
-      color: var(--brown);
-      margin-bottom: 7px;
-    }
-
-    .intro-card p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .observe-section {
-      background: #eee6d9;
-    }
-
-    .graph-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 24px;
-    }
-
-    .graph-card {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .graph-card-header {
-      padding: 20px 22px 10px;
-    }
-
-    .graph-card-header .category {
-      color: var(--gold);
-      font-size: 11px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .graph-card h3 {
-      color: var(--brown);
-      font-family: Georgia, serif;
-      font-size: 26px;
-      margin-top: 3px;
-    }
-
-    .graph-image-wrap {
-      background: white;
-      margin: 12px 20px;
-      border: 1px solid #e8e3dc;
-      border-radius: 7px;
-      min-height: 230px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-    }
-
-    .original-graph {
-      display: block;
-      width: 100%;
-      max-height: 420px;
-      object-fit: contain;
-    }
-
-    .graph-details {
-      padding: 5px 22px 22px;
-    }
-
-    .graph-details p {
-      font-size: 14px;
-      color: var(--muted);
-      margin: 7px 0;
-    }
-
-    .source-note {
-      margin-top: 17px;
-      padding: 13px 15px;
-      background: #f2eadf;
-      border-left: 4px solid var(--gold);
-      border-radius: 4px;
-      font-size: 13px;
-      color: var(--brown);
-    }
-
-    .source-note strong {
-      display: block;
-      margin-bottom: 3px;
-    }
-
-    /* MEASURE SECTION */
-    .measure-section {
-      background: var(--paper);
-    }
-
-    .experiment-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .experiment-card {
-      background: #faf6ef;
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      padding: 24px;
-    }
-
-    .experiment-card h3 {
-      color: var(--brown);
-      font-family: Georgia, serif;
-      font-size: 23px;
-      margin-bottom: 10px;
-    }
-
-    .experiment-card p {
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 12px;
-    }
-
-    .edit-hint {
-      font-size: 12px;
-      color: var(--brown-light);
-      background: #f2eadf;
-      padding: 6px 10px;
-      border-radius: 5px;
-      display: inline-block;
-      margin-bottom: 8px;
-      font-weight: bold;
-    }
-
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 10px 0 15px;
-      font-size: 13px;
-      background: white;
-    }
-
-    .data-table th,
-    .data-table td {
-      border: 1px solid var(--line);
-      padding: 7px;
-      text-align: center;
-    }
-
-    .data-table th {
-      background: var(--brown);
-      color: white;
-    }
-
-    .data-table tr:nth-child(even) {
-      background: #f8f3eb;
-    }
-
-    .table-input {
-      width: 100%;
-      max-width: 85px;
-      padding: 5px 6px;
-      text-align: center;
-      border: 1px solid #d5c8b6;
-      border-radius: 4px;
-      background: #fffdf9;
-      color: var(--ink);
-      font-weight: bold;
-      font-size: 13px;
-    }
-
-    .table-input:focus {
-      outline: none;
-      border-color: var(--gold);
-      background: #fff8eb;
-    }
-
-    .mini-chart {
-      width: 100%;
-      height: 230px;
-      display: block;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      margin: 12px 0 0;
-    }
-
-    /* DISCOVER SECTION */
-    .discover-section {
-      background: #eee6d9;
-    }
-
-    .discover-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .discover-card {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      padding: 25px;
-      box-shadow: var(--shadow);
-    }
-
-    .discover-card h3 {
-      color: var(--brown);
-      font-family: Georgia, serif;
-      font-size: 23px;
-      margin-bottom: 10px;
-    }
-
-    .discover-card p {
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 12px;
-    }
-
-    .intersection-badge {
-      display: inline-block;
-      background: #f2eadf;
-      border-left: 4px solid var(--gold);
-      padding: 8px 12px;
-      font-size: 13px;
-      color: var(--brown);
-      font-weight: bold;
-      border-radius: 4px;
-      margin-top: 10px;
-    }
-
-    /* CHALLENGE SECTION */
-    .challenge-section {
-      background: var(--paper);
-    }
-
-    .quiz-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 22px;
-      margin-bottom: 45px;
-    }
-
-    .quiz-card {
-      background: #faf6ef;
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .quiz-card .q-num {
-      color: var(--gold);
-      font-size: 11px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .quiz-card h3 {
-      color: var(--brown);
-      font-family: Georgia, serif;
-      font-size: 19px;
-      margin-bottom: 14px;
-    }
-
-    .options-list {
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-      margin-bottom: 14px;
-    }
-
-    .option-btn {
-      text-align: left;
-      padding: 10px 13px;
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      color: var(--ink);
-      font-size: 14px;
-      transition: .15s;
-    }
-
-    .option-btn:hover {
-      border-color: var(--gold);
-background: #fffaf0;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE CURVE ROOM</title>
+
+<style>
+:root{
+  --bg:#10151b;
+  --panel:#192129;
+  --panel2:#202b34;
+  --gold:#d6b477;
+  --gold2:#f0d9a7;
+  --cream:#f2eee5;
+  --muted:#aab2b8;
+  --line:#39434c;
+  --green:#8bc5a0;
+  --red:#df9292;
 }
-.option-btn.selected {
-border-color: var(--brown);
-background: #efe5d5;
-font-weight: bold;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--cream);
+  font-family:Georgia,"Times New Roman",serif;
 }
-.option-btn.correct {
-border-color: var(--green);
-background: #e6f2ea;
-color: #24422c;
-font-weight: bold;
+button,input{
+  font:inherit;
 }
-.option-btn.wrong {
-border-color: var(--red);
-background: #fae8e6;
-color: #6b241d;
+button{cursor:pointer}
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(16,21,27,.96);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(12px);
 }
-.check-btn {
-padding: 10px 16px;
-background: var(--brown);
-color: white;
-border: none;
-border-radius: 5px;
-font-size: 13px;
-font-weight: bold;
-align-self: flex-start;
+.nav{
+  max-width:1250px;
+  margin:auto;
+  padding:15px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
 }
-.check-btn:hover {
-background: var(--brown-light);
+.logo{
+  color:var(--gold);
+  font-size:18px;
+  letter-spacing:4px;
+  font-weight:bold;
 }
-.justification-box {
-display: none;
-margin-top: 14px;
-padding: 14px;
-background: white;
-border-left: 4px solid var(--green);
-border-radius: 5px;
-font-size: 13.5px;
-color: var(--ink);
+.navlinks{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
 }
-.justification-box.show {
-display: block;
+.navlinks button{
+  background:none;
+  border:1px solid transparent;
+  color:var(--muted);
+  padding:9px 12px;
+  font-size:12px;
+  letter-spacing:1px;
 }
+.navlinks button:hover,.navlinks button.active{
+  color:var(--gold2);
+  border-color:var(--gold);
+}
+section{
+  max-width:1150px;
+  margin:auto;
+  padding:85px 25px;
+}
+.hero{
+  min-height:620px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  background:
+    radial-gradient(ellipse at 50% 45%,#29323b 0%,#10151b 68%);
+}
+.eyebrow{
+  color:var(--gold);
+  letter-spacing:5px;
+  font-size:12px;
+  text-transform:uppercase;
+}
+h1{
+  font-size:clamp(43px,8vw,86px);
+  line-height:1.05;
+  letter-spacing:2px;
+  color:var(--cream);
+  margin:25px 0;
+  font-weight:normal;
+}
+h2{
+  font-size:clamp(30px,5vw,46px);
+  font-weight:normal;
+  margin:10px 0 15px;
+}
+h3{font-weight:normal;color:var(--gold2)}
+p{line-height:1.8;color:#c5c9ca}
+.gold{color:var(--gold)}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.btn{
+  border:1px solid var(--gold);
+  background:var(--gold);
+  color:#171b20;
+  padding:13px 23px;
+  font-weight:bold;
+  letter-spacing:1px;
+  transition:.2s;
+}
+.btn:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn.secondary{
+  background:transparent;
+  color:var(--gold);
+}
+.btn.secondary:hover{background:#28313a}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.intro-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-top:45px;
+}
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  padding:25px;
+  border-radius:3px;
+}
+.card-number{
+  color:var(--gold);
+  font-size:12px;
+  letter-spacing:3px;
+}
+.section-head{margin-bottom:35px}
+.section-head p{max-width:750px}
+.rule{
+  height:1px;
+  background:var(--line);
+  margin:35px 0;
+}
+.grid2{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:20px;
+}
+.graph-card{
+  background:#f7f5ef;
+  color:#222;
+  padding:12px;
+  border-radius:3px;
+  overflow:hidden;
+}
+.graph-card img{
+  width:100%;
+  height:270px;
+  object-fit:contain;
+  display:block;
+  background:#fff;
+}
+.graph-caption{
+  color:#222;
+  padding:12px 5px 4px;
+  font-family:Arial,sans-serif;
+  font-size:13px;
+  line-height:1.5;
+}
+.graph-caption strong{display:block;font-size:15px}
+.source{
+  font-size:11px;
+  color:#555;
+  margin-top:7px;
+  overflow-wrap:anywhere;
+}
+.note{
+  border-left:3px solid var(--gold);
+  padding:12px 17px;
+  background:#202a32;
+  color:#c9ced0;
+  line-height:1.7;
+  margin:20px 0;
+}
+.experiment{
+  background:var(--panel);
+  border:1px solid var(--line);
+  padding:22px;
+  margin:25px 0;
+}
+.table-wrap{overflow-x:auto}
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-family:Arial,sans-serif;
+  font-size:14px;
+  min-width:310px;
+}
+th,td{
+  border:1px solid #46515b;
+  padding:10px;
+  text-align:center;
+}
+th{color:var(--gold2);background:#27323c}
+td input{
+  width:100%;
+  min-width:55px;
+  max-width:100px;
+  background:#111a21;
+  color:white;
+  border:1px solid #56616a;
+  padding:9px 5px;
+  text-align:center;
+  border-radius:2px;
+}
+td input:focus{
+  outline:1px solid var(--gold);
+  border-color:var(--gold);
+}
+.graph-area{
+  background:#f9f8f3;
+  margin-top:18px;
+  padding:12px;
+  border-radius:3px;
+  color:#222;
+}
+.graph-area svg{
+  width:100%;
+  height:auto;
+  display:block;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:15px;
+}
+.stat{
+  background:#202b34;
+  padding:15px;
+  border:1px solid var(--line);
+}
+.stat strong{
+  display:block;
+  font-size:24px;
+  color:var(--gold2);
+  margin-top:8px;
+}
+.intersection-controls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  align-items:end;
+  margin:20px 0;
+}
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.field label{font-size:12px;color:var(--muted)}
+.field input{
+  background:#101820;
+  color:white;
+  border:1px solid #59636d;
+  padding:11px;
+  width:150px;
+}
+.result{
+  padding:15px;
+  background:#202a32;
+  border:1px solid var(--line);
+  margin-top:15px;
+  line-height:1.8;
+}
+.result strong{color:var(--gold2)}
+.question{
+  background:var(--panel);
+  border:1px solid var(--line);
+  padding:24px;
+  margin:20px 0;
+}
+.question-number{
+  font-size:12px;
+  letter-spacing:3px;
+  color:var(--gold);
+}
+.options{
+  display:grid;
+  gap:10px;
+  margin:20px 0;
+}
+.option{
+  text-align:left;
+  background:#202a32;
+  color:var(--cream);
+  border:1px solid #46515b;
+  padding:15px;
+  line-height:1.6;
+  width:100%;
+}
+.option:hover,.option.selected{
+  border-color:var(--gold);
+  background:#303a41;
+}
+.option.correct{border-color:var(--green)}
+.option.wrong{border-color:var(--red)}
+.answer-box{
+  display:none;
+  margin-top:20px;
+  padding:20px;
+  background:#202d29;
+  border-left:3px solid var(--green);
+  line-height:1.8;
+}
+.answer-box.show{display:block}
+.answer-box h3{color:var(--green)}
+.host-panel{
+  background:#202a32;
+  border:1px solid var(--gold);
+  padding:25px;
+  margin-top:25px;
+}
+.vote-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin:20px 0;
+}
+.vote-button{
+  background:#111a21;
+  color:var(--cream);
+  border:1px solid #59636d;
+  padding:15px 5px;
+}
+.vote-button.active{
+  border-color:var(--gold);
+  color:var(--gold2);
+  background:#343b3d;
+}
+.vote-count{
+  font-size:28px;
+  display:block;
+  margin:8px 0;
+  color:var(--gold);
+}
+.bar{
+  height:9px;
+  background:#111820;
+  margin-top:8px;
+}
+.bar span{
+  display:block;
+  height:100%;
+  background:var(--gold);
+  width:0%;
+}
+footer{
+  text-align:center;
+  border-top:1px solid var(--line);
+  padding:35px;
+  color:var(--muted);
+  letter-spacing:2px;
+  font-size:11px;
+}
+@media(max-width:750px){
+  .nav{align-items:flex-start;flex-direction:column}
+  .intro-grid,.grid2{grid-template-columns:1fr}
+  section{padding:60px 17px}
+  .hero{min-height:540px}
+  .vote-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media print{
+  header{display:none}
+  body{background:white;color:black}
+  section{break-inside:avoid}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="nav">
+  <div class="logo">THE CURVE ROOM</div>
+  <nav class="navlinks">
+   <button class="active" onclick="go('home',this)">HOME</button>
+   <button onclick="go('observe',this)">OBSERVE</button>
+   <button onclick="go('measure',this)">MEASURE</button>
+   <button onclick="go('discover',this)">DISCOVER</button>
+   <button onclick="go('challenge',this)">CHALLENGE</button>
+   <button onclick="go('voting',this)">CLASS VOTING</button>
+  </nav>
+ </div>
+</header>
+
+<!-- HOME -->
+
+<section id="home" class="hero">
+ <div class="eyebrow">A mathematical investigation</div>
+ <h1>THE CURVE<br><span class="gold">ROOM</span></h1>
+ <p style="max-width:650px">
+  Project: The Curves Around Us
+ </p>
+ <button class="btn" onclick="go('observe')">ENTER THE ROOM →</button>
+
+ <div class="intro-grid" style="text-align:left">
+  <div class="card">
+   <div class="card-number">01 — OBSERVE</div>
+   <h3>Look closely.</h3>
+   <p>Explore real curves from different fields and understand what their axes and values represent.</p>
+  </div>
+  <div class="card">
+   <div class="card-number">02 — MEASURE</div>
+   <h3>Collect evidence.</h3>
+   <p>Use measurements to build tables, draw curves and find maximum and minimum values.</p>
+  </div>
+  <div class="card">
+   <div class="card-number">03 — DISCOVER</div>
+   <h3>Think deeper.</h3>
+   <p>Investigate intersections and discover what different curves can tell us.</p>
+  </div>
+ </div>
+</section>
+
+<!-- OBSERVE -->
+
+<section id="observe">
+ <div class="section-head">
+  <div class="eyebrow">Step one</div>
+  <h2>Observe the Curves</h2>
+  <p>Four fields. Four real situations. Study the original graphs carefully. Use the actual values and axis labels visible in each screenshot. Do not estimate values that cannot be read.</p>
+ </div>
+
+ <div class="grid2">
+  <div class="graph-card">
+   <img src="images/health.png" alt="Health curve" onerror="this.alt='Upload images/health.png to display this graph'">
+   <div class="graph-caption">
+    <strong>01 — HEALTH</strong>
+    Growth and health measurements.
+    <div class="source">Source: Original health graph screenshot — PMC publication. Refer to the source shown on the original graph.</div>
+   </div>
+  </div>
+
+  <div class="graph-card">
+   <img src="images/weather.png" alt="Weather curve" onerror="this.alt='Upload images/weather.png to display this graph'">
+   <div class="graph-caption">
+    <strong>02 — WEATHER</strong>
+    Temperature and weather changes.
+    <div class="source">Source: Original weather graph screenshot — weather.gov. Refer to the original graph for its exact source.</div>
+   </div>
+  </div>
+
+  <div class="graph-card">
+   <img src="images/economy.png" alt="Economy curve" onerror="this.alt='Upload images/economy.png to display this graph'">
+   <div class="graph-caption">
+    <strong>03 — ECONOMY</strong>
+    Economic measurements over time.
+    <div class="source">Source: Federal Reserve Economic Data (FRED), as identified in the original screenshot.</div>
+   </div>
+  </div>
+
+  <div class="graph-card">
+   <img src="images/sport.png" alt="Sport curve" onerror="this.alt='Upload images/sport.png to display this graph'">
+   <div class="graph-caption">
+    <strong>04 — SPORT</strong>
+    Sports performance and measurements.
+    <div class="source">Source: See the original sports graph screenshot and its source note.</div>
+   </div>
+  </div>
+ </div>
+
+ <div class="note">
+  <strong class="gold">Observation reminder</strong><br>
+  Always read the two axes, their quantities and units. A point must be interpreted using both coordinates, not just one number.
+ </div>
+
+ <h3>Questions to investigate</h3>
+ <ol style="line-height:2.2;color:#d1d5d5">
+  <li>What field does the curve belong to, and what is its title?</li>
+  <li>What quantity and unit are shown on the horizontal axis?</li>
+  <li>What quantity and unit are shown on the vertical axis?</li>
+  <li>What does this curve show?</li>
+  <li>Choose a point, write its coordinates and explain what it shows.</li>
+  <li>Where does the curve go up? Where does it go down?</li>
+  <li>What are its biggest and smallest values?</li>
+  <li>What real-life decision can this curve help us make?</li>
+ </ol>
+</section>
+
+<!-- MEASURE -->
+
+<section id="measure">
+ <div class="section-head">
+  <div class="eyebrow">Step two</div>
+  <h2>Measure & Compare</h2>
+  <p>Change the measurements in the tables. The graphs, maximum and minimum values update immediately from the data.</p>
+ </div>
+
+ <div class="note">
+  <strong class="gold">How to use:</strong>
+  Click any table cell and change its value. The graph is recalculated automatically. The graph uses the table as its only data source.
+ </div>
+
+ <div class="experiment">
+  <div class="eyebrow">Experiment A</div>
+  <h3>Likes Gained</h3>
+  <p>Number of likes gained during each hour. These are hourly gains, not the total number of likes.</p>
+  <div class="table-wrap">
+   <table id="likesTable">
+    <thead><tr><th>Time</th><th>Likes gained</th></tr></thead>
+    <tbody></tbody>
+   </table>
+  </div>
+  <div class="graph-area">
+   <div id="likesGraph"></div>
+  </div>
+  <div class="stats">
+   <div class="stat">Maximum<strong id="likesMax">—</strong><span id="likesMaxTime" class="small muted"></span></div>
+   <div class="stat">Minimum<strong id="likesMin">—</strong><span id="likesMinTime" class="small muted"></span></div>
+  </div>
+  <div class="note" id="likesDescription">The curve description will appear here.</div>
+ </div>
+
+ <div class="experiment">
+  <div class="eyebrow">Experiment B</div>
+  <h3>Battery Level</h3>
+  <p>Battery percentage during a normal day. The example measurements show a decreasing battery level.</p>
+  <div class="table-wrap">
+   <table id="batteryTable">
+    <thead><tr><th>Time</th><th>Battery level (%)</th></tr></thead>
+    <tbody></tbody>
+   </table>
+  </div>
+  <div class="graph-area">
+   <div id="batteryGraph"></div>
+  </div>
+  <div class="stats">
+   <div class="stat">Maximum<strong id="batteryMax">—</strong><span id="batteryMaxTime" class="small muted"></span></div>
+   <div class="stat">Minimum<strong id="batteryMin">—</strong><span id="batteryMinTime" class="small muted"></span></div>
+  </div>
+  <div class="note" id="batteryDescription">The curve description will appear here.</div>
+ </div>
+</section>
+
+<!-- DISCOVER -->
+
+<section id="discover">
+ <div class="section-head">
+  <div class="eyebrow">Step three</div>
+  <h2>Discover the Intersections</h2>
+  <p>Investigate how many times a vertical or horizontal line intersects a curve. The marked intersection points are calculated from the actual line segments.</p>
+ </div>
+
+ <div class="experiment">
+  <h3>Part A — Vertical Line Test</h3>
+  <p>Choose an x-value. The vertical line will be drawn through that value. The system calculates every intersection with the piecewise-linear curve.</p>
+  <div class="intersection-controls">
+   <div class="field">
+    <label for="verticalX">Choose horizontal-axis value (x)</label>
+    <input type="number" id="verticalX" value="2.5" step="0.1">
+   </div>
+   <button class="btn" onclick="drawDiscovery('vertical')">TEST VERTICAL LINE</button>
+  </div>
+  <div class="graph-area"><div id="verticalGraph"></div></div>
+  <div class="result" id="verticalResult">Choose a value and run the test.</div>
+ </div>
+
+ <div class="experiment">
+  <h3>Part A — Horizontal Line Test</h3>
+  <p>Choose a y-value. The horizontal line will be drawn through that value. Count the exact intersections.</p>
+  <div class="intersection-controls">
+   <div class="field">
+    <label for="horizontalY">Choose vertical-axis value (y)</label>
+    <input type="number" id="horizontalY" value="4" step="0.1">
+   </div>
+   <button class="btn" onclick="drawDiscovery('horizontal')">TEST HORIZONTAL LINE</button>
+  </div>
+  <div class="graph-area"><div id="horizontalGraph"></div></div>
+  <div class="result" id="horizontalResult">Choose a value and run the test.</div>
+ </div>
+
+ <div class="experiment">
+  <h3>Part B — Test the Four Original Curves</h3>
+  <p>Use a vertical line on each original graph. Examine how many times it intersects the curve. The number depends on the actual graph and the selected position.</p>
+  <div class="grid2">
+   <div class="card"><strong>Health</strong><p>Check whether one age corresponds to more than one height on the displayed curve.</p></div>
+   <div class="card"><strong>Weather</strong><p>Check how many temperature values are shown at one selected time.</p></div>
+   <div class="card"><strong>Economy</strong><p>Examine the number of values at a selected date.</p></div>
+   <div class="card"><strong>Sport</strong><p>Examine how many measurements appear at a selected time.</p></div>
+  </div>
+ </div>
+
+ <div class="experiment">
+  <h3>Part C — The Circle</h3>
+  <p>A vertical line through the middle of a circle intersects its circumference at two points. A tangent vertical line can touch it at one point, while a line outside the circle has no intersection.</p>
+  <div class="graph-area">
+   <svg viewBox="0 0 600 390" role="img" aria-label="Circle with a vertical line crossing it at two points">
+    <defs><pattern id="circleGrid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#e1e1dc" stroke-width="1"/></pattern></defs>
+    <rect width="600" height="390" fill="#faf9f5"/>
+    <rect x="30" y="15" width="540" height="350" fill="url(#circleGrid)"/>
+    <path d="M40 190H560 M300 25V355" stroke="#333" stroke-width="2"/>
+    <circle cx="300" cy="190" r="105" fill="none" stroke="#273d50" stroke-width="3"/>
+    <path d="M300 20V360" stroke="#bc7942" stroke-width="2.5" stroke-dasharray="7 5"/>
+    <circle cx="300" cy="85" r="6" fill="#bc7942"/>
+    <circle cx="300" cy="295" r="6" fill="#bc7942"/>
+    <text x="310" y="77" fill="#333" font-size="14">Intersection 1</text>
+    <text x="310" y="315" fill="#333" font-size="14">Intersection 2</text>
+    <text x="555" y="180" fill="#333" font-size="13">x</text>
+    <text x="312" y="30" fill="#333" font-size="13">y</text>
+   </svg>
+  </div>
+  <div class="result">
+   <strong>Question:</strong> Can a complete circle represent a situation in which every horizontal-axis value has only one corresponding vertical-axis value?
+   <br><br>
+   <strong>Answer:</strong> No. For many x-values, a vertical line intersects the circle at two points.
+  </div>
+ </div>
+
+ <div class="experiment">
+  <h3>Part D — Conclusion</h3>
+  <p>Compare the curves from your experiments with the circle. Explain what the number of intersections tells you about the relationship between two quantities.</p>
+ </div>
+</section>
+
+<!-- CHALLENGE -->
+
+<section id="challenge">
+ <div class="section-head">
+  <div class="eyebrow">Think before you answer</div>
+  <h2>The Challenge Room</h2>
+  <p>Six questions. Four possible answers each. Read carefully and justify your reasoning.</p>
+ </div>
+ <div id="questionBank"></div>
+</section>
+
+<!-- CLASS VOTING -->
+
+<section id="voting">
+ <div class="section-head">
+  <div class="eyebrow">The final debate</div>
+  <h2>Class Voting Desk</h2>
+  <p>One question. Four choices. One correct answer. Discuss your reasoning before the host reveals the result.</p>
+ </div>
+
+ <div class="question">
+  <div class="question-number">THE FINAL CLASS VOTE</div>
+  <h3 style="font-size:25px">The Study-Time Conclusion</h3>
+
+  <p>A scientist is studying the relationship between the time a student spends studying and the student's test score.</p>
+
+  <p>She collects the following observations:</p>
+  <ul style="line-height:2;color:#d4d7d7">
+   <li>Student 1 studies for 1 hour and scores 60%.</li>
+   <li>Student 2 studies for 2 hours and scores 75%.</li>
+   <li>Student 3 studies for 3 hours and scores 75%.</li>
+   <li>Student 4 studies for 4 hours and scores 90%.</li>
+  </ul>
+
+  <p>She concludes:</p>
+  <blockquote style="border-left:3px solid var(--gold);padding:12px 20px;color:var(--gold2);font-size:19px">
+   "Every time the study time increases, the test score must also increase."
+  </blockquote>
+
+  <h3>Which is the strongest mathematical criticism of her conclusion?</h3>
+
+  <div class="options" id="voteOptions">
+   <button class="option" data-answer="A" onclick="selectVote('A')"><strong>A.</strong> Her conclusion is correct because the highest study time gives the highest test score.</button>
+   <button class="option" data-answer="B" onclick="selectVote('B')"><strong>B.</strong> Her conclusion is incorrect because two different study times produce the same test score, so an increase in one quantity does not always mean an increase in the other.</button>
+   <button class="option" data-answer="C" onclick="selectVote('C')"><strong>C.</strong> Her conclusion is correct because the overall trend of the observations is increasing.</button>
+   <button class="option" data-answer="D" onclick="selectVote('D')"><strong>D.</strong> Her conclusion is incorrect because a relationship between two quantities must always decrease before it increases.</button>
+  </div>
+
+  <div class="note">
+   <strong class="gold">Host instructions</strong><br>
+   Select the option chosen by a student, then press Record Vote. Repeat for every student. All voting is managed on this one laptop.
+  </div>
+
+  <div class="host-panel">
+   <div class="eyebrow">Host control</div>
+   <h3>Record class votes</h3>
+   <p>Selected answer: <strong id="selectedVote" class="gold">None</strong></p>
+   <button class="btn" onclick="recordVote()">RECORD VOTE</button>
+   <button class="btn secondary" onclick="undoVote()">UNDO LAST VOTE</button>
+   <button class="btn secondary" onclick="resetVotes()">RESET VOTES</button>
+
+   <div class="rule"></div>
+   <h3>Class voting results</h3>
+   <div id="voteResults"></div>
+   <p id="totalVotes" class="gold">Total votes: 0</p>
+
+   <button class="btn secondary" onclick="showResults()">SHOW VOTE RESULTS</button>
+   <button class="btn" onclick="revealVotingAnswer()">REVEAL CORRECT ANSWER</button>
+
+   <div id="votingReveal" class="answer-box">
+    <h3>Correct answer: B</h3>
+
+    <strong>The important observation is:</strong>
+    <ul>
+     <li>2 hours → 75%</li>
+     <li>3 hours → 75%</li>
+    </ul>
+
+    Although study time increases from 2 to 3 hours, the test score remains unchanged.
+
+    Therefore, the scientist's statement that the score must increase every time study time increases is not supported by the observations.
+
+    <br><br>
+    <strong>Why the other options are incorrect:</strong>
+    <ul>
+     <li><strong>A is wrong:</strong> The highest final value does not prove that every intermediate value increases.</li>
+     <li><strong>C is wrong:</strong> An overall increasing trend does not mean every individual change is an increase.</li>
+     <li><strong>D is wrong:</strong> There is no mathematical rule requiring a quantity to decrease before increasing.</li>
+    </ul>
+
+    <div class="rule"></div>
+    <strong class="gold">The key discovery:</strong>
+    We must analyze individual values, not just the general direction of a curve.
+   </div>
+  </div>
+ </div>
+</section>
+
+<footer>
+ THE CURVE ROOM · PROJECT: THE CURVES AROUND US
+ <p>OBSERVE · MEASURE · DISCOVER</p>
+</footer>
+
+<script>
+/* NAVIGATION */
+
+function go(id,button){
+ document.getElementById(id).scrollIntoView({behavior:"smooth"});
+ document.querySelectorAll(".navlinks button").forEach(b=>b.classList.remove("active"));
+ if(button)button.classList.add("active");
+}
+
+/* MEASURE DATA */
+
+const datasets={
+ likes:[
+  {time:"9 AM",value:4},
+  {time:"10 AM",value:8},
+  {time:"11 AM",value:13},
+  {time:"12 PM",value:7},
+  {time:"1 PM",value:5},
+  {time:"2 PM",value:11},
+  {time:"3 PM",value:6},
+  {time:"4 PM",value:3}
+ ],
+ battery:[
+  {time:"8 AM",value:100},
+  {time:"9 AM",value:92},
+  {time:"10 AM",value:84},
+  {time:"11 AM",value:75},
+  {time:"12 PM",value:67},
+  {time:"1 PM",value:58},
+  {time:"2 PM",value:49},
+  {time:"3 PM",value:40}
+ ]
+};
+
+function renderTable(key){
+ const tbody=document.querySelector("#"+key+"Table tbody");
+ tbody.innerHTML="";
+ datasets[key].forEach((row,i)=>{
+  const tr=document.createElement("tr");
+  const timeCell=document.createElement("td");
+  const valueCell=document.createElement("td");
+
+  const timeInput=document.createElement("input");
+  timeInput.type="text";
+  timeInput.value=row.time;
+  timeInput.setAttribute("aria-label","Time for row "+(i+1));
+  timeInput.addEventListener("input",()=>{
+   row.time=timeInput.value;
+   updateExperiment(key);
+  });
+
+  const valueInput=document.createElement("input");
+  valueInput.type="number";
+  valueInput.step="any";
+  valueInput.value=row.value;
+  valueInput.setAttribute("aria-label","Measurement for row "+(i+1));
+  valueInput.addEventListener("input",()=>{
+   row.value=valueInput.value===""?null:Number(valueInput.value);
+   updateExperiment(key);
+  });
+
+  timeCell.appendChild(timeInput);
+  valueCell.appendChild(valueInput);
+  tr.append(timeCell,valueCell);
+  tbody.appendChild(tr);
+ });
+}
+
+function validRows(key){
+ return datasets[key].filter(r=>
+  r.time.trim()!=="" && r.value!==null &&
+  Number.isFinite(Number(r.value))
+ );
+}
+
+function graphSVG(rows,title,yLabel){
+ const W=850,H=390,L=75,R=25,T=30,B=75;
+ const plotW=W-L-R,plotH=H-T-B;
+ const vals=rows.map(r=>Number(r.value));
+ let min=Math.min(0,...vals);
+ let max=Math.max(...vals);
+ if(min===max){min-=1;max+=1}
+ const pad=(max-min)*.12;
+ min-=pad;max+=pad;
+
+ const x=i=>L+(rows.length===1?plotW/2:i*plotW/Math.max(1,rows.length-1));
+ const y=v=>T+(max-v)/(max-min)*plotH;
+ const yTicks=5;
+ let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${title} line graph">`;
+ s+=`<rect width="${W}" height="${H}" fill="#faf9f5"/>`;
+ for(let i=0;i<=yTicks;i++){
+  const v=min+(max-min)*i/yTicks;
+  const yy=y(v);
+  s+=`<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#deded8"/>`;
+  s+=`<text x="${L-12}" y="${yy+5}" font-size="12" text-anchor="end" fill="#333">${fmt(v)}</text>`;
+ }
+ rows.forEach((r,i)=>{
+  const xx=x(i);
+  s+=`<line x1="${xx}" y1="${T}" x2="${xx}" y2="${H-B}" stroke="#efeee9"/>`;
+  s+=`<text x="${xx}" y="${H-B+22}" font-size="12" text-anchor="middle" fill="#333">${escapeXML(r.time)}</text>`;
+ });
+ s+=`<line x1="${L}" y1="${T}" x2="${L}" y2="${H-B}" stroke="#333" stroke-width="2"/>`;
+ s+=`<line x1="${L}" y1="${H-B}" x2="${W-R}" y2="${H-B}" stroke="#333" stroke-width="2"/>`;
+ s+=`<text x="${W/2}" y="${H-12}" text-anchor="middle" fill="#333" font-size="14">Time</text>`;
+ s+=`<text x="18" y="${H/2}" transform="rotate(-90 18 ${H/2})" text-anchor="middle" fill="#333" font-size="14">${escapeXML(yLabel)}</text>`;
+
+ const points=rows.map((r,i)=>`${x(i)},${y(Number(r.value))}`).join(" ");
+ s+=`<polyline points="${points}" fill="none" stroke="#b37b42" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+ rows.forEach((r,i)=>{
+  s+=`<circle cx="${x(i)}" cy="${y(Number(r.value))}" r="5" fill="#263d50" stroke="#fff" stroke-width="1.5"/>`;
+ });
+ s+="</svg>";
+ return s;
+}
+
+function fmt(n){
+ return Number(n.toFixed(2)).toString();
+}
+function escapeXML(s){
+ return String(s).replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&apos;"
+ }[c]));
+}
+
+function updateExperiment(key){
+ const rows=validRows(key);
+ const graphId=key==="likes"?"likesGraph":"batteryGraph";
+ const prefix=key==="likes"?"likes":"battery";
+ const unit=key==="likes"?"likes":"%";
+
+ if(rows.length===0){
+  document.getElementById(graphId).innerHTML="<p>No valid measurements yet.</p>";
+  ["Max","Min"].forEach(s=>{
+   document.getElementById(prefix+s).textContent="—";
+   document.getElementById(prefix+s+"Time").textContent="";
+  });
+  document.getElementById(prefix+"Description").textContent="Enter valid measurements to display the graph.";
+  return;
+ }
+
+ document.getElementById(graphId).innerHTML=graphSVG(
+  rows,
+  key==="likes"?"Likes gained by hour":"Battery level by time",
+  key==="likes"?"Likes gained":"Battery level (%)"
+ );
+
+ const max=Math.max(...rows.map(r=>Number(r.value)));
+ const min=Math.min(...rows.map(r=>Number(r.value)));
+ const maxRows=rows.filter(r=>Number(r.value)===max);
+ const minRows=rows.filter(r=>Number(r.value)===min);
+
+ document.getElementById(prefix+"Max").textContent=max+" "+unit;
+ document.getElementById(prefix+"Min").textContent=min+" "+unit;
+ document.getElementById(prefix+"MaxTime").textContent="At "+maxRows.map(r=>r.time).join(", ");
+ document.getElementById(prefix+"MinTime").textContent="At "+minRows.map(r=>r.time).join(", ");
+
+ const changes=[];
+ for(let i=1;i<rows.length;i++){
+  const diff=Number(rows[i].value)-Number(rows[i-1].value);
+  if(diff>0)changes.push("increases from "+rows[i-1].time+" to "+rows[i].time);
+  else if(diff<0)changes.push("decreases from "+rows[i-1].time+" to "+rows[i].time);
+  else changes.push("remains unchanged from "+rows[i-1].time+" to "+rows[i].time);
+ }
+ document.getElementById(prefix+"Description").textContent=
+  "Maximum: "+max+" "+unit+" at "+maxRows.map(r=>r.time).join(", ")+
+  ". Minimum: "+min+" "+unit+" at "+minRows.map(r=>r.time).join(", ")+
+  ". Changes: "+changes.join("; ")+".";
+}
+
+renderTable("likes");
+renderTable("battery");
+updateExperiment("likes");
+updateExperiment("battery");
+
+/* DISCOVER: PIECEWISE LINEAR CURVE */
+
+const discoveryPoints=[
+ {x:0,y:2},
+ {x:1,y:5},
+ {x:2,y:3},
+ {x:3,y:7},
+ {x:4,y:4},
+ {x:5,y:6}
+];
+
+function uniquePoints(points){
+ const out=[];
+ points.forEach(p=>{
+  if(!out.some(q=>Math.abs(q.x-p.x)<1e-8 && Math.abs(q.y-p.y)<1e-8)){
+   out.push(p);
+  }
+ });
+ return out;
+}
+
+function intersections(mode,value){
+ const hits=[];
+ const eps=1e-9;
+
+ for(let i=0;i<discoveryPoints.length-1;i++){
+  const a=discoveryPoints[i];
+  const b=discoveryPoints[i+1];
+
+  if(mode==="vertical"){
+   if(value<Math.min(a.x,b.x)-eps||value>Math.max(a.x,b.x)+eps)continue;
+   if(Math.abs(b.x-a.x)<eps){
+    if(Math.abs(value-a.x)<eps){
+     hits.push({x:value,y:a.y});
+     hits.push({x:value,y:b.y});
+    }
+   }else{
+    const t=(value-a.x)/(b.x-a.x);
+    if(t>=-eps&&t<=1+eps){
+     hits.push({x:value,y:a.y+t*(b.y-a.y)});
+    }
+   }
+  }else{
+   if(value<Math.min(a.y,b.y)-eps||value>Math.max(a.y,b.y)+eps)continue;
+   if(Math.abs(b.y-a.y)<eps){
+    if(Math.abs(value-a.y)<eps){
+     hits.push({x:a.x,y:value});
+     hits.push({x:b.x,y:value});
+    }
+   }else{
+    const t=(value-a.y)/(b.y-a.y);
+    if(t>=-eps&&t<=1+eps){
+     hits.push({x:a.x+t*(b.x-a.x),y:value});
+    }
+   }
+  }
+ }
+ return uniquePoints(hits);
+}
+
+function discoverySVG(mode,value,hits){
+ const W=800,H=430,L=65,R=30,T=25,B=55;
+ const xmin=0,xmax=5,ymin=0,ymax=8;
+ const X=x=>L+(x-xmin)/(xmax-xmin)*(W-L-R);
+ const Y=y=>H-B-(y-ymin)/(ymax-ymin)*(H-T-B);
+ let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Discovery curve and calculated intersections">`;
+ s+=`<rect width="${W}" height="${H}" fill="#faf9f5"/>`;
+
+ for(let x=0;x<=5;x++){
+  s+=`<line x1="${X(x)}" y1="${T}" x2="${X(x)}" y2="${H-B}" stroke="#e1e1dc"/>`;
+  s+=`<text x="${X(x)}" y="${H-B+22}" fill="#333" font-size="13" text-anchor="middle">${x}</text>`;
+ }
+ for(let y=0;y<=8;y++){
+  s+=`<line x1="${L}" y1="${Y(y)}" x2="${W-R}" y2="${Y(y)}" stroke="#e1e1dc"/>`;
+  s+=`<text x="${L-12}" y="${Y(y)+4}" fill="#333" font-size="12" text-anchor="end">${y}</text>`;
+ }
+
+ s+=`<line x1="${L}" y1="${T}" x2="${L}" y2="${H-B}" stroke="#333" stroke-width="2"/>`;
+ s+=`<line x1="${L}" y1="${H-B}" x2="${W-R}" y2="${H-B}" stroke="#333" stroke-width="2"/>`;
+ s+=`<text x="${W/2}" y="${H-10}" text-anchor="middle" fill="#333">x-value</text>`;
+ s+=`<text x="17" y="${H/2}" transform="rotate(-90 17 ${H/2})" text-anchor="middle" fill="#333">y-value</text>`;
+
+ const line=discoveryPoints.map(p=>`${X(p.x)},${Y(p.y)}`).join(" ");
+ s+=`<polyline points="${line}" fill="none" stroke="#263d50" stroke-width="4" stroke-linejoin="round"/>`;
+
+ discoveryPoints.forEach(p=>{
+  s+=`<circle cx="${X(p.x)}" cy="${Y(p.y)}" r="4" fill="#263d50"/>`;
+ });
+
+ if(mode==="vertical"){
+  s+=`<line x1="${X(value)}" y1="${T}" x2="${X(value)}" y2="${H-B}" stroke="#bd7a3c" stroke-width="2.5" stroke-dasharray="8 5"/>`;
+ }else{
+  s+=`<line x1="${L}" y1="${Y(value)}" x2="${W-R}" y2="${Y(value)}" stroke="#bd7a3c" stroke-width="2.5" stroke-dasharray="8 5"/>`;
+ }
+
+ hits.forEach((p,i)=>{
+  s+=`<circle cx="${X(p.x)}" cy="${Y(p.y)}" r="7" fill="#c34e43" stroke="#fff" stroke-width="2"/>`;
+  s+=`<text x="${X(p.x)+9}" y="${Y(p.y)-10}" font-size="12" fill="#9a332b">${i+1}</text>`;
+ });
+ s+="</svg>";
+ return s;
+}
+
+function drawDiscovery(mode){
+ const input=document.getElementById(mode==="vertical"?"verticalX":"horizontalY");
+ const value=Number(input.value);
+ const result=document.getElementById(mode==="vertical"?"verticalResult":"horizontalResult");
+ const graph=document.getElementById(mode==="vertical"?"verticalGraph":"horizontalGraph");
+
+ if(!Number.isFinite(value)){
+  result.textContent="Enter a valid number.";
+  return;
+ }
+
+ const hits=intersections(mode,value);
+ graph.innerHTML=discoverySVG(mode,value,hits);
+
+ const coordinates=hits.length
+  ?hits.map(p=>"("+fmt(p.x)+", "+fmt(p.y)+")").join("; ")
+  :"No intersection points.";
+
+ result.innerHTML="<strong>Number of intersections: "+hits.length+
+  "</strong><br>Intersection coordinates: "+escapeXML(coordinates)+
+  "<br>The red circles mark the exact calculated intersection points.";
+}
+
+drawDiscovery("vertical");
+drawDiscovery("horizontal");
+
+/* CHALLENGE QUESTION BANK */
+
+const questions=[
+ {
+  title:"The Likes Mystery",
+  text:"A post receives 4 likes in the first hour, 8 in the second, 13 in the third, 7 in the fourth and 5 in the fifth. Which statement is correct?",
+  options:[
+   "The maximum hourly gain is 13 likes, during the third hour.",
+   "The maximum hourly gain is 37 likes, because that is the total.",
+   "The minimum hourly gain is 13 likes.",
+   "The likes gained must increase every hour."
+  ],
+  correct:"A",
+  why:"The largest hourly gain is 13 likes in the third hour. The total number of likes is not the same as the gain during one hour. The other measurements show that hourly gains can decrease."
+ },
+ {
+  title:"Total Likes or Likes Gained?",
+  text:"A post has 12 likes at 2 PM and 47 likes at 3 PM. What is the number of likes gained during that hour?",
+  options:[
+   "35 likes, because 47 − 12 = 35.",
+   "47 likes, because that is the final total.",
+   "59 likes, because 47 + 12 = 59.",
+   "12 likes, because that is the starting total."
+  ],
+  correct:"A",
+  why:"The total at the end includes the likes already counted at the beginning. To find the increase, subtract the starting total from the ending total: 47 − 12 = 35."
+ },
+ {
+  title:"The Battery Minimum",
+  text:"A battery starts at 100%, decreases to 60%, rises to 80% while charging, and later falls to 30%. Which statement is correct?",
+  options:[
+   "The maximum is 80% because charging happened.",
+   "The minimum is 60% because it was the first decrease.",
+   "The minimum is 30%, the smallest recorded battery level.",
+   "The maximum is 100% only if the battery never decreases."
+  ],
+  correct:"C",
+  why:"The minimum is the smallest value in the entire data set. Comparing 100%, 60%, 80% and 30% gives a minimum of 30%. A temporary increase does not change this."
+ },
+ {
+  title:"The Circle Question",
+  text:"A complete circle is drawn on a coordinate system. A vertical line passes through its centre. How many times does this line intersect the circumference?",
+  options:[
+   "Zero times.",
+   "One time.",
+   "Two times.",
+   "Four times."
+  ],
+  correct:"C",
+  why:"A vertical line through the centre enters the circle at the upper boundary and exits at the lower boundary. These are two distinct intersection points."
+ },
+ {
+  title:"The Falling Temperature",
+  text:"The temperature is 18°C at 8 AM, 14°C at 10 AM, 14°C at 12 PM and 20°C at 2 PM. Which conclusion is supported by the measurements?",
+  options:[
+   "The temperature decreases at every measurement.",
+   "The temperature decreases, remains unchanged, then increases.",
+   "The temperature increases at every measurement.",
+   "The temperature remains constant throughout the day."
+  ],
+  correct:"B",
+  why:"From 8 to 10 AM it falls from 18°C to 14°C. From 10 AM to 12 PM it remains at 14°C. From 12 to 2 PM it rises to 20°C."
+ },
+ {
+  title:"The Wavy Curve",
+  text:"A curve rises, falls, rises again and falls again. Which statement is the most accurate?",
+  options:[
+   "Every horizontal line must intersect it exactly once.",
+   "Every vertical line must intersect it more than once.",
+   "Its maximum must be at the final point.",
+   "A horizontal line may intersect it more than once, depending on its height."
+  ],
+  correct:"D",
+  why:"A wavy curve can reach the same vertical-axis value at different horizontal-axis positions. Therefore, some horizontal lines can intersect it multiple times. The exact number depends on the selected height."
+ }
+];
+
+function renderQuestions(){
+ const root=document.getElementById("questionBank");
+ root.innerHTML="";
+ questions.forEach((q,i)=>{
+  const article=document.createElement("article");
+  article.className="question";
+  article.innerHTML=`
+   <div class="question-number">QUESTION ${String(i+1).padStart(2,"0")}</div>
+   <h3>${escapeXML(q.title)}</h3>
+   <p>${escapeXML(q.text)}</p>
+   <div class="options">
+    ${q.options.map((o,j)=>`
+     <button class="option" data-q="${i}" data-choice="${"ABCD"[j]}">
+      <strong>${"ABCD"[j]}.</strong> ${escapeXML(o)}
+     </button>`).join("")}
+   </div>
+   <button class="btn secondary" onclick="checkQuestion(${i})">SUBMIT ANSWER</button>
+   <div id="answer${i}" class="answer-box"></div>
+  `;
+  root.appendChild(article);
+ });
+ root.querySelectorAll(".option").forEach(button=>{
+  button.addEventListener("click",()=>{
+   const q=Number(button.dataset.q);
+   root.querySelectorAll(`[data-q="${q}"]`).forEach(b=>b.classList.remove("selected"));
+   button.classList.add("selected");
+  });
+ });
+}
+
+function checkQuestion(i){
+ const selected=document.querySelector(`[data-q="${i}"].selected`);
+ const box=document.getElementById("answer"+i);
+ if(!selected){
+  box.className="answer-box show";
+  box.innerHTML="Please select an answer first.";
+  return;
+ }
+ const answer=selected.dataset.choice;
+ const q=questions[i];
+ const isCorrect=answer===q.correct;
+ box.className="answer-box show";
+ box.innerHTML=`
+  <h3>${isCorrect?"Correct answer!":"Not quite. Think about it again."}</h3>
+  <strong>Correct answer: ${q.correct}</strong>
+  <p>${escapeXML(q.why)}</p>
+ `;
+}
+
 /* CLASS VOTING DESK */
-.voting-desk {
-background: #f5eee3;
-border: 2px solid var(--gold);
-border-radius: 12px;
-padding: 32px;
-box-shadow: var(--shadow);
+
+let selectedVote=null;
+const votes={A:0,B:0,C:0,D:0};
+const voteHistory=[];
+
+function selectVote(letter){
+ selectedVote=letter;
+ document.getElementById("selectedVote").textContent=letter;
+ document.querySelectorAll("#voteOptions .option").forEach(b=>{
+  b.classList.toggle("selected",b.dataset.answer===letter);
+ });
 }
-.voting-desk .eyebrow {
-color: var(--gold);
-margin-bottom: 6px;
+
+function recordVote(){
+ if(!selectedVote){
+  alert("Select a student's answer first.");
+  return;
+ }
+ votes[selectedVote]++;
+ voteHistory.push(selectedVote);
+ selectedVote=null;
+ document.getElementById("selectedVote").textContent="None";
+ document.querySelectorAll("#voteOptions .option").forEach(b=>b.classList.remove("selected"));
+ updateVotes();
 }
-.voting-desk h3 {
-font-family: Georgia, serif;
-color: var(--brown);
-font-size: 28px;
-margin-bottom: 14px;
+
+function undoVote(){
+ const last=voteHistory.pop();
+ if(!last){
+  alert("There are no votes to undo.");
+  return;
+ }
+ votes[last]--;
+ updateVotes();
 }
-.voting-scenario {
-background: var(--paper);
-border: 1px solid var(--line);
-border-radius: 8px;
-padding: 20px;
-margin-bottom: 18px;
-font-size: 15px;
+
+function resetVotes(){
+ if(!confirm("Reset all class votes?"))return;
+ Object.keys(votes).forEach(k=>votes[k]=0);
+ voteHistory.length=0;
+ selectedVote=null;
+ document.getElementById("selectedVote").textContent="None";
+ updateVotes();
 }
-.voting-scenario ul {
-margin: 10px 0 12px 22px;
+
+function updateVotes(){
+ const total=Object.values(votes).reduce((a,b)=>a+b,0);
+ document.getElementById("totalVotes").textContent="Total votes: "+total;
+ document.getElementById("voteResults").innerHTML=
+  ["A","B","C","D"].map(k=>{
+   const pct=total?votes[k]/total*100:0;
+   return `
+    <div style="margin:13px 0">
+     <div style="display:flex;justify-content:space-between">
+      <strong>${k}</strong>
+      <span>${votes[k]} votes · ${pct.toFixed(1)}%</span>
+     </div>
+     <div class="bar"><span style="width:${pct}%"></span></div>
+    </div>`;
+  }).join("");
 }
-.voting-scenario li {
-margin-bottom: 4px;
+
+function showResults(){
+ updateVotes();
+ document.getElementById("voteResults").scrollIntoView({behavior:"smooth",block:"center"});
 }
-.voting-quote {
-background: #f2eadf;
-border-left: 4px solid var(--brown);
-padding: 10px 14px;
-margin: 12px 0;
-font-style: italic;
-color: var(--brown);
+
+function revealVotingAnswer(){
+ document.getElementById("votingReveal").classList.add("show");
+ document.getElementById("votingReveal").scrollIntoView({behavior:"smooth",block:"center"});
 }
-.voting-question {
-font-weight: bold;
-color: var(--brown);
-font-size: 16px;
-margin-top: 10px;
-}
-.voting-options {
-display: flex;
-flex-direction: column;
-gap: 10px;
-margin: 16px 0;
-}
-.vote-choice {
-display: flex;
-align-items: flex-start;
-gap: 10px;
-background: white;
-border: 1px solid var(--line);
-border-radius: 7px;
-padding: 13px 15px;
-cursor: pointer;
-transition: .15s;
-}
-.vote-choice:hover {
-border-color: var(--gold);
-background: #fffdf8;
-}
-.vote-choice input[type="radio"] {
-margin-top: 4px;
-accent-color: var(--brown);
-}
-.vote-choice.correct-choice {
-border-color: var(--green);
-background: #e6f2ea;
-}
-.vote-choice.wrong-choice {
-border-color: var(--red);
-background: #fae8e6;
-}
-.submit-vote-btn {
-padding: 13px 26px;
-background: var(--brown);
-color: white;
-border: none;
-border-radius: 6px;
-font-weight: bold;
-font-size: 14px;
-}
-.submit-vote-btn:hover {
-background: var(--brown-light);
-}
-.vote-result {
-display: none;
-margin-top: 20px;
-padding: 20px;
-background: white;
-border: 1px solid var(--line);
-border-left: 5px solid var(--green);
-border-radius: 8px;
-font-size: 14.5px;
-}
-.vote-result.show {
-display: block;
-}
-.vote-result h4 {
-color: var(--green);
-font-size: 17px;
-margin-bottom: 10px;
-}
-.vote-result ul {
-margin: 8px 0 12px 22px;
-}
-.vote-result li {
-margin-bottom: 5px;
-}
-.key-discovery {
-margin-top: 12px;
-padding: 12px 15px;
-background: #f2eadf;
-border-radius: 6px;
-color: var(--brown);
-font-weight: bold;
-}
-footer {
-background: var(--brown);
-color: #e8dfd3;
-text-align: center;
-padding: 28px 6%;
-font-size: 13px;
-}
-@media (max-width: 850px) {
-.intro-grid,
-.graph-grid,
-.experiment-grid,
-.discover-grid,
-.quiz-grid {
-grid-template-columns: 1fr;
-}
-}
+
+renderQuestions();
+updateVotes();
+
+</script>
+</body>
+</html>
